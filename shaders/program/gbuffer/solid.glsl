@@ -21,13 +21,13 @@ out vec3 scene_pos;
 out vec4 tint;
 
 flat out uint material_mask;
-flat out mat3 tbn;
+out mat3 tbn;
 
 #if defined POM
 out vec2 atlas_tile_coord;
 out vec3 tangent_pos;
-flat out vec2 atlas_tile_offset;
-flat out vec2 atlas_tile_scale;
+out vec2 atlas_tile_offset;
+out vec2 atlas_tile_scale;
 #endif
 
 #if defined PROGRAM_GBUFFERS_TERRAIN
@@ -97,14 +97,14 @@ void main() {
 	vanilla_ao = gl_Color.a < 0.1 ? 1.0 : gl_Color.a; // fixes models where vanilla ao breaks (eg lecterns)
 	vanilla_ao = material_mask == 5 ? 1.0 : vanilla_ao; // no vanilla ao on leaves
 	tint.a = 1.0;
+#endif
 
-	#ifdef POM
+#ifdef POM
 	// from fayer3
 	vec2 uv_minus_mid = uv - mc_midTexCoord;
 	atlas_tile_offset = min(uv, mc_midTexCoord - uv_minus_mid);
 	atlas_tile_scale = abs(uv_minus_mid) * 2.0;
 	atlas_tile_coord = sign(uv_minus_mid) * 0.5 + 0.5;
-	#endif
 #endif
 
 #if defined PROGRAM_GBUFFERS_ENTITIES
@@ -181,13 +181,13 @@ in vec3 scene_pos;
 in vec4 tint;
 
 flat in uint material_mask;
-flat in mat3 tbn;
+in mat3 tbn;
 
 #if defined POM
 in vec2 atlas_tile_coord;
 in vec3 tangent_pos;
-flat in vec2 atlas_tile_offset;
-flat in vec2 atlas_tile_scale;
+in vec2 atlas_tile_offset;
+in vec2 atlas_tile_scale;
 #endif
 
 #if defined PROGRAM_GBUFFERS_TERRAIN

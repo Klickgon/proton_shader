@@ -112,7 +112,7 @@ flat in vec3 light_color;
 flat in vec3 ambient_color;
 
 #if defined PROGRAM_GBUFFERS_WATER
-in vec2 atlas_tile_coord;
+flat in vec2 atlas_tile_coord;
 in vec3 tangent_pos;
 flat in vec2 atlas_tile_offset;
 flat in vec2 atlas_tile_scale;

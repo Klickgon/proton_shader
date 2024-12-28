@@ -25,13 +25,13 @@ out vec4 tint;
 flat out vec3 light_color;
 flat out vec3 ambient_color;
 flat out uint material_mask;
-flat out mat3 tbn;
+out mat3 tbn;
 
 #if defined PROGRAM_GBUFFERS_WATER
 out vec2 atlas_tile_coord;
 out vec3 position_tangent;
-flat out vec2 atlas_tile_offset;
-flat out vec2 atlas_tile_scale;
+out vec2 atlas_tile_offset;
+out vec2 atlas_tile_scale;
 #endif
 
 // --------------
@@ -178,13 +178,13 @@ in vec4 tint;
 flat in vec3 light_color;
 flat in vec3 ambient_color;
 flat in uint material_mask;
-flat in mat3 tbn;
+in mat3 tbn;
 
 #if defined PROGRAM_GBUFFERS_WATER
 in vec2 atlas_tile_coord;
 in vec3 position_tangent;
-flat in vec2 atlas_tile_offset;
-flat in vec2 atlas_tile_scale;
+in vec2 atlas_tile_offset;
+in vec2 atlas_tile_scale;
 #endif
 
 // ------------
@@ -634,11 +634,11 @@ void main() {
 		NoH,
 		LoV
 	);
-
+	float mult = (1 - (0.85 * float(!is_water)));
 	// Specular highlight
 
 #if (defined WORLD_OVERWORLD || defined WORLD_END) && !defined NO_NORMAL
-	fragment_color.rgb += get_specular_highlight(material, NoL, NoV, NoH, LoV, LoH) * light_color * shadows * cloud_shadows;
+	fragment_color.rgb += get_specular_highlight(material, NoL, NoV, NoH, LoV, LoH) * light_color * shadows * cloud_shadows * mult;
 #endif
 
 	// Specular reflections
@@ -660,7 +660,7 @@ void main() {
 			direction_world * new_tbn,
 			light_levels.y,
 			is_water
-		);
+		) * mult;
 	}
 #endif
 

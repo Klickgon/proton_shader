@@ -310,7 +310,7 @@ void main() {
 			) * vec3(-1.0, 1.0, -1.0);
 			
 			// Specular highlight
-
+			
 #if (defined WORLD_OVERWORLD || defined WORLD_END) && !defined NO_NORMAL
 			float NoL = dot(normal, light_dir);
 			float NoV = clamp01(dot(normal, -direction_world));

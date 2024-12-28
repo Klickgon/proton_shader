@@ -69,6 +69,7 @@ void decode_specular_map(vec4 specular_map, inout Material material) {
 		// Albedo metal
 		material.f0 = material.albedo;
 		material.is_metal = true;
+		material.albedo *=  4.5 / (material.roughness + 1);
 	}
 
 	material.ssr_multiplier = step(0.01, (material.f0.x - material.f0.x * material.roughness * SSR_ROUGHNESS_THRESHOLD)); // based on Kneemund's method
